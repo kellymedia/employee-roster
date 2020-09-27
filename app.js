@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 
-const outputPath = path.resolve(__dirname, 'result', 'roster.html');
+const outputPath = path.resolve(__dirname, 'output', 'team.html');
 
 const Manager = require('./lib/manager');
 const Engineer = require('./lib/engineer');
