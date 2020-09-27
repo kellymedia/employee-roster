@@ -1,6 +1,6 @@
 function managerCard(data) {
-    return `
-      <div class="card employee-card m-2 col-3">
+  return `
+        <div class="card employee-card m-2 col-3">
         <script src="https://kit.fontawesome.com/7b4d2fea99.js" crossorigin="anonymous"></script>
         <div class="card-header">
             <h2 class="card-title">${data.name}</h2>
@@ -15,7 +15,6 @@ function managerCard(data) {
         </div>
         </div>
     `;
-  }
-  
-  module.exports = managerCard;
-  
+}
+
+module.exports = managerCard;
