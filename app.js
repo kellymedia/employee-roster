@@ -23,7 +23,7 @@ const mainApp = () => {
       {
         type: 'input',
         name: 'managerName',
-        message: 'What is your Managers name?',
+        message: "What is your Manager's name?",
         validate(value) {
           const valid = isNaN(value);
           return valid || 'Please enter a name.';
@@ -41,7 +41,7 @@ const mainApp = () => {
       {
         type: 'input',
         name: 'managerEmail',
-        message: 'What is your managers email?',
+        message: "What is your manager's email?",
         validate(value) {
           const valid = isNaN(value);
           return valid || 'Please enter an email.';
@@ -50,7 +50,7 @@ const mainApp = () => {
       {
         type: 'input',
         name: 'officeNumber',
-        message: 'What is your managers office number?',
+        message: "What is your manager's office number?",
         validate(value) {
           const valid = !isNaN(parseFloat(value));
           return valid || 'Please enter a number.';
@@ -108,7 +108,7 @@ const mainApp = () => {
         {
           type: 'input',
           name: 'engineerName',
-          message: 'Enter engineers name:',
+          message: "Enter engineer's name:",
           validate(value) {
             const valid = isNaN(value);
             return valid || 'Please enter a name.';
@@ -117,7 +117,7 @@ const mainApp = () => {
         {
           type: 'input',
           name: 'engineerId',
-          message: 'Enter engineers id:',
+          message: "Enter engineer's id:",
           validate(value) {
             const valid = !isNaN(parseFloat(value));
             return valid || 'Please enter a number.';
@@ -126,7 +126,7 @@ const mainApp = () => {
         {
           type: 'input',
           name: 'engineerEmail',
-          message: 'Enter engineers email:',
+          message: "Enter engineer's email:",
           validate(value) {
             const valid = isNaN(value);
             return valid || 'Please enter an email.';
@@ -162,7 +162,7 @@ const mainApp = () => {
         {
           type: 'input',
           name: 'internName',
-          message: 'Enter interns name:',
+          message: "Enter intern's name:",
           validate(value) {
             const valid = isNaN(value);
             return valid || 'Please enter a name.';
@@ -171,7 +171,7 @@ const mainApp = () => {
         {
           type: 'input',
           name: 'internId',
-          message: 'Enter interns Id:',
+          message: "Enter intern's Id:",
           validate(value) {
             const valid = !isNaN(parseFloat(value));
             return valid || 'Please enter a number.';
@@ -180,7 +180,7 @@ const mainApp = () => {
         {
           type: 'input',
           name: 'internEmail',
-          message: 'Enter interns email:',
+          message: "Enter intern's email:",
           validate(value) {
             const valid = isNaN(value);
             return valid || 'Please enter an email.';
@@ -189,7 +189,7 @@ const mainApp = () => {
         {
           type: 'input',
           name: 'internSchool',
-          message: 'Enter interns school:',
+          message: "Enter intern's school:",
           validate(value) {
             const valid = isNaN(value);
             return valid || 'Please enter a school.';
