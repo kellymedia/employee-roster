@@ -1,35 +1,219 @@
-const Manager = require("./lib/Manager");
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
-const inquirer = require("inquirer");
-const path = require("path");
-const fs = require("fs");
-
-const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputPath = path.join(OUTPUT_DIR, "team.html");
-
-const render = require("./lib/htmlRenderer");
+const inquirer = require('inquirer');
+const fs = require('fs');
+const path = require('path');
 
 
-// Write code to use inquirer to gather information about the development team members,
-// and to create objects for each team member (using the correct classes as blueprints!)
+const outputPath = path.resolve(__dirname, 'result', 'team.html');
 
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
+const Manager = require('./lib/manager');
+const Engineer = require('./lib/engineer');
+const Intern = require('./lib/intern');
+const main = require('./templates/main');
 
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
+const managerCard = require('./templates/managerCard');
+const internCard = require('./templates/internCard');
+const engineerCard = require('./templates/engineerCard');
 
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
+const fullRoster = [];
 
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
+const mainApp = () => {
+  console.log('Please build your team');
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'managerName',
+        message: 'What is your Managers name?',
+        validate(value) {
+          const valid = isNaN(value);
+          return valid || 'Please enter a name.';
+        },
+      },
+      {
+        type: 'input',
+        name: 'managerId',
+        message: 'What is the employee id?',
+        validate(value) {
+          const valid = !isNaN(parseFloat(value));
+          return valid || 'Please enter a number.';
+        },
+      },
+      {
+        type: 'input',
+        name: 'managerEmail',
+        message: 'What is your managers email?',
+        validate(value) {
+          const valid = isNaN(value);
+          return valid || 'Please enter an email.';
+        },
+      },
+      {
+        type: 'input',
+        name: 'officeNumber',
+        message: 'What is your managers office number?',
+        validate(value) {
+          const valid = !isNaN(parseFloat(value));
+          return valid || 'Please enter a number.';
+        },
+      },
+    ])
+    .then(response => {
+      const manager = new Manager(
+        response.managerName,
+        response.managerId,
+        response.managerEmail,
+        response.officeNumber
+      );
+      const managerCardHtml = managerCard(manager);
+      fullRoster.push(managerCardHtml);
+      addRosterMembers();
+    });
+
+  function addRosterMembers() {
+    inquirer
+      .prompt([
+        {
+          type: 'list',
+          name: 'addMembers',
+          message: 'What would you like to do?',
+          choices: [
+            'Add an Engineer',
+            'Add an Intern',
+            "I'm all done. Let's see my team!",
+          ],
+        },
+      ])
+      .then(answers => {
+        switch (answers.addMembers) {
+          case 'Add an Engineer': {
+            promptEngineer();
+            break;
+          }
+          case 'Add an Intern': {
+            promptIntern();
+            break;
+          }
+          case "I'm all done. Let's see my team!": {
+            createRoster();
+            break;
+          }
+        }
+      });
+  }
+
+  const promptEngineer = () => {
+    console.log('Please enter engineer info');
+    inquirer
+      .prompt([
+        {
+          type: 'input',
+          name: 'engineerName',
+          message: 'Enter engineers name:',
+          validate(value) {
+            const valid = isNaN(value);
+            return valid || 'Please enter a name.';
+          },
+        },
+        {
+          type: 'input',
+          name: 'engineerId',
+          message: 'Enter engineers id:',
+          validate(value) {
+            const valid = !isNaN(parseFloat(value));
+            return valid || 'Please enter a number.';
+          },
+        },
+        {
+          type: 'input',
+          name: 'engineerEmail',
+          message: 'Enter engineers email:',
+          validate(value) {
+            const valid = isNaN(value);
+            return valid || 'Please enter an email.';
+          },
+        },
+        {
+          type: 'input',
+          name: 'engineerGithub',
+          message: 'Enter GitHub username:',
+          validate(value) {
+            const valid = isNaN(value);
+            return valid || 'Please enter a username.';
+          },
+        },
+      ])
+      .then(response => {
+        const engineer = new Engineer(
+          response.engineerName,
+          response.engineerId,
+          response.engineerEmail,
+          response.engineerGithub
+        );
+        const engineerCardHtml = engineerCard(engineer);
+        fullRoster.push(engineerCardHtml);
+        addRosterMembers();
+      });
+  };
+
+  const promptIntern = () => {
+    console.log('Please enter intern info');
+    inquirer
+      .prompt([
+        {
+          type: 'input',
+          name: 'internName',
+          message: 'Enter interns name:',
+          validate(value) {
+            const valid = isNaN(value);
+            return valid || 'Please enter a name.';
+          },
+        },
+        {
+          type: 'input',
+          name: 'internId',
+          message: 'Enter interns Id:',
+          validate(value) {
+            const valid = !isNaN(parseFloat(value));
+            return valid || 'Please enter a number.';
+          },
+        },
+        {
+          type: 'input',
+          name: 'internEmail',
+          message: 'Enter interns email:',
+          validate(value) {
+            const valid = isNaN(value);
+            return valid || 'Please enter an email.';
+          },
+        },
+        {
+          type: 'input',
+          name: 'internSchool',
+          message: 'Enter interns school:',
+          validate(value) {
+            const valid = isNaN(value);
+            return valid || 'Please enter a school.';
+          },
+        },
+      ])
+      .then(response => {
+        const intern = new Intern(
+          response.internName,
+          response.internId,
+          response.internEmail,
+          response.internSchool
+        );
+        const internCardHtml = internCard(intern);
+
+        fullRoster.push(internCardHtml);
+        addRosterMembers();
+      });
+  };
+
+  function createRoster() {
+    const finalRoster = fullRoster.join('');
+    fs.writeFileSync(outputPath, main(finalRoster), 'utf-8');
+  }
+};
+
+mainApp();
