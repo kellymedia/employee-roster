@@ -1,15 +1,10 @@
-# emplyee-roster-summary
-
-# Needs & Deeds App
+# Employee Roster Generator
 
 ## Description
 This is a software engineering team generator command line app. The application will prompt a user for information about the team manager and then information about the team members. The user can input any number of team members, and they may be a mix of engineers and interns. When the user has completed building the team, the application will create an HTML file that displays a team roster based on the information provided by the user. Each team member will have a card that is designed specifically for that role. 
 
-[![App Screenshot](./assets/screenshot.png "app screenshot")](#)
-
-## Demo
-
-Click here for a [demo](#) of this project.
+![Git](./assets/employee-roster.gif) 
+![App Screenshot](./assets/screenshot.png "app screenshot")
 
 ## User Story
 
@@ -17,6 +12,9 @@ Click here for a [demo](#) of this project.
     I want to generate a webpage that displays my employee roster info
     so that I have quick access to emails, and GitHub profiles.
 
+## Tests
+
+![App Screenshot](./assets/tests.png "app screenshot")
 
 ## Tech Used
 
